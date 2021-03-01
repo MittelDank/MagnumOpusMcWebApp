@@ -1,24 +1,5 @@
-# README
+Node wrapper around multicraft panel api to call server commands, ruby env variables passed into cli node call
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Multicraft api can use website backend with node wrapper to privately message players with a pin for website login so no email/ect
 
-Things you may want to cover:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
