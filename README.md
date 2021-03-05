@@ -7,6 +7,8 @@ after that fetches all the gems required for the app lets do npm/yarn
 `yarn`
 after all your js modules get setup
 
+Simply navigate to localhost:3000
+
 Then you should be good to run the rails server with:
 `rails s`
 and if you want compile the frontend on the fly with the webpack dev server in a seperate terminal:
