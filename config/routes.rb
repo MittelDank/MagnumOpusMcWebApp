@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root 'static#index'
   
   resources :sessions, only: [:new, :destroy, :create]
+  get 'sessions/user_check', to: 'sessions#user_check', as: :user_check
 end

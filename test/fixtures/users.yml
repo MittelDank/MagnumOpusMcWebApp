@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ign: MyString
+  session_id: MyString
+  skin: MyString
+
+two:
+  ign: MyString
+  session_id: MyString
+  skin: MyString

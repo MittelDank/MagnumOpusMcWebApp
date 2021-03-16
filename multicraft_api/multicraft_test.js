@@ -6,7 +6,7 @@ const api = new MulticraftAPI({
     key: "YRPCqyJtDU64Xa"
 });
 
-api.sendConsoleCommand({server_id: 107744, command: "msg Hellowarz hello titties mate"})
+api.sendConsoleCommand({server_id: 107744, command: "tempmute Bobistan 1m take that!!!!"})
     .then((data) => console.log(data))
     .catch((err) => console.error(err));
 

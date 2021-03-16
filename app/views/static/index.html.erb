@@ -1,4 +1,7 @@
 <div>
   Hello World
-  <%= button_to "Sign In From Game", new_session_path %> 
+  <div class="mc_char" data-controller="ignName">
+    <input type="text" class="ignName" placeholder="Your IGN Name Here"></input>
+    <%= button_to "Sign In From Game", user_check_path , {method: :get, data: {"action": "click->ignName#hi"}} %> 
+  </div>
 </div>
