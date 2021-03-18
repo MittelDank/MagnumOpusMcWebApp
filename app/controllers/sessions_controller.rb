@@ -45,7 +45,7 @@ class SessionsController < ApplicationController
       session[:ign] = params[:ign] 
       session[:pin] = pin
 
-      fork { exec('node', './multicraft_api/user_pin.js', credentials[:url], credentials[:user], credentials[:api_key], credentials[:server_id].to_s, command) }
+      fork { exec('node', './multicraft_api/server_command.js', credentials[:url], credentials[:user], credentials[:api_key], credentials[:server_id].to_s, command) }
 
       redirect_to new_session_path 
     end
