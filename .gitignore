@@ -40,3 +40,7 @@ yarn-debug.log*
 .yarn-integrity
 *.swp
 .swp
+*.swo
+.swo
+*.swn
+.swn

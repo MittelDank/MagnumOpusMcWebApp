@@ -1,7 +1,11 @@
 <div>
-  Hello World
-  <div class="mc_char" data-controller="ignName">
-    <input type="text" class="ignName" placeholder="Your IGN Name Here"></input>
-    <%= button_to "Sign In From Game", user_check_path , {method: :get, data: {"action": "click->ignName#hi"}} %> 
+  <div class="mc_char" data-controller="ign">
+
+    <%= form_with url: user_check_path, method: :get, data: {"action": "click->ign#hi"} do |form| %>
+      <!-- <input type="text" class="ign" placeholder="Your IGN Name Here"></input> -->
+      <%= form.text_field, {class: ign, placeholder: "Your IGN Here"} %>
+
+      <%= form.submit, class: "btn submit" %>
+    <% end %>
   </div>
 </div>

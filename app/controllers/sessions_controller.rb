@@ -2,6 +2,8 @@ class SessionsController < ApplicationController
 
   def new
     @meta_tag= "noindex"
+    puts session
+    puts session[:ign]
   end
 
   def create
@@ -10,7 +12,7 @@ class SessionsController < ApplicationController
       session[:user] = user.id
       redirect_to root_path
     else
-      User.new(ign: params[:ign], pin: params[:pin])
+      user = User.create(ign: session[:ign], pin: session[:pin])
       session[:user] = user.id
       redirect_to root_path
     end
@@ -19,7 +21,7 @@ class SessionsController < ApplicationController
   def destroy
     @meta_tag= "noindex"
 
-    session[:user_id] = nil
+    session[:user] = nil
     redirect_to root_path
   end
 
@@ -28,8 +30,14 @@ class SessionsController < ApplicationController
     if user && user.pin
       redirect_to :create
     else
-      # logic to send console command here
-      redirect_to new_session_path #, user: 'user'
+      # Pin for user in their mc server /mail read
+      credentials = Rails.application.credentials.hosting
+      pin = [1,1,1,1].map!{|x| (0..9).to_a.sample}.join
+      session[:ign] = params[:ign] && session[:pin] = pin
+
+      fork { exec('node', './multicraft_api/api_module.js', credentials[:url], credentials[:user], credentials[:api_key], credentials[:server_id].to_s, "mail send #{params[:ign]} #{pin}") }
+
+      redirect_to new_session_path 
     end
   end
 
