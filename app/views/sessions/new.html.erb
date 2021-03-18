@@ -1,4 +1,6 @@
 <div>
-  <input placeholder="Put code from in game /mail"></input>
-  <%= button_to "Code:", sessions_path, action: :post %>
+  <%= form_with url: sessions_path, method: :post, data: {"action": "click->ign#hi"} do |form| %>
+    <%= form.text_field :pin, class: "pin", placeholder: "The pin from the server in your: /mail read" %>
+    <%= button_to "Code:", sessions_path, action: :post %>
+  <% end %>
 </div>

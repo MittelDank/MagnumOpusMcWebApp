@@ -1,11 +1,9 @@
 <div>
   <div class="mc_char" data-controller="ign">
-
     <%= form_with url: user_check_path, method: :get, data: {"action": "click->ign#hi"} do |form| %>
       <!-- <input type="text" class="ign" placeholder="Your IGN Name Here"></input> -->
-      <%= form.text_field, {class: ign, placeholder: "Your IGN Here"} %>
-
-      <%= form.submit, class: "btn submit" %>
+      <%= form.text_field :ign, {class: "ign", placeholder: "Your IGN Here"} %>
+      <%= form.submit "Sign up/in", class: 'btn btn_submit' %>
     <% end %>
   </div>
 </div>

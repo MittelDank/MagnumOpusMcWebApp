@@ -14,8 +14,7 @@ ActiveRecord::Schema.define(version: 2021_03_06_230518) do
 
   create_table "users", force: :cascade do |t|
     t.string "ign"
-    t.string "session_id"
-    t.string "skin"
+    t.integer "pin"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
