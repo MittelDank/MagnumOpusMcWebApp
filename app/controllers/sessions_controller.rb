@@ -5,18 +5,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if check_pin()
-      user = User.find_by_username(params[:session][:username])
-      if @user && @user.authenticate(params[:session][:password])
-        session[:user_id] = @user.id
-        redirect_to '/'
-      else
-        # User.new(username: #user info here
-
-      end
-    else
+    user = User.find_by(ign: params[:ign]) || false
+    if user.pin
+      session[:user] = user.id
       redirect_to root_path
-      flash[:alert] = "Oops.. Houston, we have a problem..."
+    else
+      User.new(ign: params[:ign], pin: params[:pin])
+      session[:user] = user.id
+      redirect_to root_path
     end
   end
 
@@ -29,20 +25,12 @@ class SessionsController < ApplicationController
 
   def user_check
     user = User.find_by(ign: params[:ign]) || false
-    puts user
     if user && user.pin
-      redirect_to :create, user
+      redirect_to :create
     else
-      redirect_to :new
+      # logic to send console command here
+      redirect_to new_session_path #, user: 'user'
     end
-  end
-
-
-  private
-
-  def check_pin
-    user = User.find_by(ign: params[:ign]) || false
-    return user
   end
 
 end
