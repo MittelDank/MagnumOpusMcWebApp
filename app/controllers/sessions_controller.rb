@@ -37,6 +37,7 @@ class SessionsController < ApplicationController
     else
       # Pin for user in their mc server /mail read
       create_pin()
+      puts 'i got in after create pin'
       redirect_to new_session_path 
     end
   end
@@ -45,17 +46,12 @@ class SessionsController < ApplicationController
   private
 
   def create_pin()
-      credentials = Rails.application.credentials.hosting
       pin = [1,1,1,1].map!{|x| (0..9).to_a.sample}.join
       command = "mail send #{params[:ign]} Login Pin: #{pin}"
       session[:ign] = params[:ign] 
       session[:pin] = pin
 
-      send_server_command(command)
+      SendServerCommandJob.perform_async(command)
   end
 
-  def send_server_command(command)
-    puts command, 'in send_server_command'
-    SendServerCommandJob.perform_async()
-  end
 end
