@@ -1,16 +1,13 @@
 class SessionsController < ApplicationController
-
   def new
     @meta_tag= "noindex"
-    puts 'session ign:'
-    puts session[:ign]
   end
 
   def create
     # pin failure
     if params[:pin] != session[:pin]
       session[:user] = nil
-      redirect_to root_path(login: "failed")
+      redirect_to new_session_path(login: "failed")
     else
       user = User.find_by(ign: session[:ign]) || false
       if user 
@@ -36,19 +33,29 @@ class SessionsController < ApplicationController
   def user_check
     user = User.find_by(ign: params[:ign]) || false
     if user && user.pin
-      redirect_to :create
+      create()
     else
       # Pin for user in their mc server /mail read
+      create_pin()
+      redirect_to new_session_path 
+    end
+  end
+
+
+  private
+
+  def create_pin()
       credentials = Rails.application.credentials.hosting
       pin = [1,1,1,1].map!{|x| (0..9).to_a.sample}.join
       command = "mail send #{params[:ign]} Login Pin: #{pin}"
       session[:ign] = params[:ign] 
       session[:pin] = pin
 
-      fork { exec('node', './multicraft_api/server_command.js', credentials[:url], credentials[:user], credentials[:api_key], credentials[:server_id].to_s, command) }
-
-      redirect_to new_session_path 
-    end
+      send_server_command(command)
   end
 
+  def send_server_command(command)
+    puts command, 'in send_server_command'
+    SendServerCommandJob.perform_async()
+  end
 end
